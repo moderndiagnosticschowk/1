@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2&family=Zeyada&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .paper-image {
+        background-image: url(/f2b4ec8b7be179d8f877fc411a126b2e.jpg);
+        background-repeat: no-repeat;
+        background-position: center center;
+        /* padding: 20px 100px; */
+        /* min-width: 800px; */
+        position: absolute;
+        transform: rotateZ(-5deg);
+        background-size: 500px;
+        box-shadow: 1px 15px 20px 0px rgba(0, 0, 0, 0.5);
+        top: 50px;
+        left: 50px;
+        height: 900px;
+      }
+      .text {
+        right: 25px;
+        top: 120px;
+        transform: rotate(345deg);
+        position: relative;
+      }
+      .text p {
+        overflow: hidden;
+        white-space: nowrap;
+        font-family: zeyada;
+        font-size: 24px;
+        font-weight: 700;
+        width: 350px;
+        margin: 0px 180px;
+        font-size: 20px;
+        line-height: 0.1px;
+      }
+      span {
+        font-weight: 900;
+        font-size: 25px;
+        color: rgb(255, 2, 2);
+      }
+      /* Blinking cursor animation */
+      .cursor {
+        display: inline-block;
+        vertical-align: middle;
+        width: 2px;
+        height: 1.2em;
+        background-color: #000;
+        animation: blink 0.7s infinite alternate;
+      }
+
+      @keyframes blink {
+        to {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="song">
+      <source src="mai.mp3" />
+    </audio>
+    <div class="main">
+      <div class="paper-image">
+        <div class="text">
+          <p id="line1"></p>
+          <p id="line2"></p>
+          <p id="line3"></p>
+          <p id="line4"></p>
+          <p id="line5"></p>
+          <p id="line6"></p>
+          <p id="line7"></p>
+          <p id="line8"></p>
+          <p id="line9"></p>
+          <p id="line10"></p>
+          <p id="line11"></p>
+          <p id="line12"></p>
+          <p id="line13"></p>
+        </div>
+      </div>
+    </div>
+    <script>
+      const lines = [
+        "My Beloved <span>YOU</span>,",
+        "In the midst of this ocean journey,",
+        "My heart is overwhelmed with love for you.",
+        "From the sunsets on the deck", 
+        "to the adventures ashore,",
+        "Every moment with you is a treasure.",
+        "Your love is my anchor,",
+        "Guiding me through life's tides.",
+        "As we sail together,",
+        "I look forward to countless",
+        "more sunrises and sunsets,",
+        "My love for you as boundless as the sea.",
+        "Forever Yours, <span>Sangam</span>",
+      ];
+
+      let lineIndex = 0;
+      let charIndex = 0;
+      let isSpan = false;
+
+      function type() {
+        const line = lines[lineIndex];
+        const currentChar = line[charIndex];
+        const element = document.getElementById(`line${lineIndex + 1}`);
+
+        if (currentChar === "<") {
+          isSpan = true;
+        }
+
+        if (currentChar === ">") {
+          isSpan = false;
+        }
+
+        if (isSpan) {
+          element.innerHTML += currentChar;
+        } else {
+          element.innerHTML =
+            line.substr(0, charIndex + 1) + '<span class="cursor"></span>';
+        }
+
+        charIndex++;
+
+        if (charIndex < line.length) {
+          setTimeout(type, 50);
+        } else {
+          charIndex = 0;
+          lineIndex++;
+
+          if (lineIndex < lines.length) {
+            setTimeout(type, 1000); // Delay before typing the next line
+          }
+        }
+      }
+
+      setTimeout(type, 1000); // Delay before starting the typing animation
+    </script>
+  </body>
+</html>
