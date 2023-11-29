@@ -143,10 +143,14 @@
 
       setTimeout(type, 1000); // Delay before starting the typing animation
     </script>
-        <script>
-      window.addEventListener("click", () => {
-        document.getElementById("song").play();
-      });
-    </script>
+    <script>
+    // Get the audio element
+    var audio = document.getElementById("song");
+
+    // Play the audio when the page is loaded
+    window.addEventListener('load', function() {
+        audio.play();
+    });
+</script>
   </body>
 </html>
